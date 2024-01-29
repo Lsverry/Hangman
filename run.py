@@ -1,3 +1,6 @@
+categories = {"animals" : ["dog", "cat", "lion", "chicken", "frog"],
+              "technology" : ["robot", "computer", "printer", "camera"],
+              "sports" : ["cycling", "soccer", "baseball", "tennis", "boxing"]}
 
 
 class player():
