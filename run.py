@@ -29,3 +29,30 @@ class player():
             self.wrong_words.append(word)
         else:
             self.correct_words.append(word)
+
+
+def main():
+    categories_list = [x for x in categories.keys()]
+    main_menu = True
+    selection = ""
+    start_game = False
+    while True:
+        if main_menu:
+            print("\nSelect one option below:\n")
+            print("1.New Game")
+            print("2.Load Game")
+            selection = input("\nType 1 or 2: ")
+
+            if selection == "1" or selection.lower() == "new game":
+                print("\nCreate new game")
+                main_menu = False
+                
+            elif selection == "2" or selection.lower() == "load game":
+                print("\nLoading game")
+                main_menu = False
+
+            else:
+                print(f"\n{selection} is not a valid option.")
+                continue
+
+main()
