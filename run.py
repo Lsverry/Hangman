@@ -1,3 +1,5 @@
+import random
+
 categories = {"animals" : ["dog", "cat", "lion", "chicken", "frog"],
               "technology" : ["robot", "computer", "printer", "camera"],
               "sports" : ["cycling", "soccer", "baseball", "tennis", "boxing"]}
@@ -36,6 +38,7 @@ def main():
     main_menu = True
     selection = ""
     start_game = False
+    current_category = ""
     while True:
         if main_menu:
             print("\nSelect one option below:\n")
@@ -67,17 +70,24 @@ def main():
             if selection.lower() in categories_list:
                 print(f"{selection} is correct")
                 start_game = True
+                current_category = selection.lower()
             elif selection.isdigit():
                 selection = int(selection)
                 if selection-1 < len(categories_list) and selection-1 != -1:
                     print(categories_list[selection-1])
                     start_game = True
+                    current_category = categories_list[selection-1]
                 else:
                     print(f"\n{selection} is not included, try again")
             else:
                 print(f"\n{selection} is not an included category, try again")
 
-    
 
 
-main()
+def select_a_word(category):
+    number_of_words = len(categories[category])-1
+    print(categories[category][random.randint(0, number_of_words)])
+
+select_a_word("animals")
+
+#main()
