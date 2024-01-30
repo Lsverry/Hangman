@@ -54,5 +54,30 @@ def main():
             else:
                 print(f"\n{selection} is not a valid option.")
                 continue
+        
+        elif start_game:
+            input("Starting game :")
+
+        else:
+            print("\nSelect one category below:")
+            for i, c in enumerate(categories):
+                print(i+1,c.capitalize())
+            selection = input("Type a number or a name to select: ")
+
+            if selection.lower() in categories_list:
+                print(f"{selection} is correct")
+                start_game = True
+            elif selection.isdigit():
+                selection = int(selection)
+                if selection-1 < len(categories_list) and selection-1 != -1:
+                    print(categories_list[selection-1])
+                    start_game = True
+                else:
+                    print(f"\n{selection} is not included, try again")
+            else:
+                print(f"\n{selection} is not an included category, try again")
+
+    
+
 
 main()
