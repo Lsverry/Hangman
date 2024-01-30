@@ -88,6 +88,14 @@ def select_a_word(category):
     number_of_words = len(categories[category])-1
     print(categories[category][random.randint(0, number_of_words)])
 
-select_a_word("animals")
+
+def display_underscores(word, letters_list):
+    for letter in word:
+        if letter in letters_list:
+            print(letter.upper(), end=" ")
+        else:
+            print("_", end=" ")
+
+display_underscores("tiger", ["t","r","g"])
 
 #main()
