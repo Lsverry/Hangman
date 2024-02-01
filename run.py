@@ -34,6 +34,10 @@ class player():
 
 
 def main():
+    """
+    Main function that is in charge of creating the navigation menu, 
+    validating the answers, and using the rest of the functions.
+    """
     categories_list = [x for x in categories.keys()]
     main_menu = True
     selection = ""
@@ -85,11 +89,18 @@ def main():
 
 
 def select_a_word(category):
+    """
+    Selects and returns a random word based on the category passed to it.
+    """
     number_of_words = len(categories[category])-1
     print(categories[category][random.randint(0, number_of_words)])
 
 
 def display_underscores(word, letters_list):
+    """
+    Shows underscores to indicate the number of letters in the word,
+    shows the letters found in the word if they are matched.
+    """
     for letter in word:
         if letter in letters_list:
             print(letter.upper(), end=" ")
@@ -97,6 +108,10 @@ def display_underscores(word, letters_list):
             print("_", end=" ")
 
 def display_hangman(num):
+    """
+    Use a number between 1 and 6 to create the parts of the hangman.
+    Returns the same number as the number passed to it.
+    """
     parts = ["O","|","/","\\","/","\\"]
     if num <= 2:
         for part in range(num):
