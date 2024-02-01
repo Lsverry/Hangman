@@ -96,6 +96,27 @@ def display_underscores(word, letters_list):
         else:
             print("_", end=" ")
 
-display_underscores("tiger", ["t","r","g"])
+def display_hangman(num):
+    parts = ["O","|","/","\\","/","\\"]
+    if num <= 2:
+        for part in range(num):
+            print("    " + parts[part])
+    else:
+
+        print("    " + parts[0])
+        print("   " + parts[2], end = "")
+        print(parts[1], end="")
+        
+        if num > 3:
+            print(parts[3])
+            if num > 4:
+                print("   ", end="")
+                for part in range(4,num):
+                    print(parts[part], end = " ")
+    return num
+
+
+                
+#display_underscores("tiger", ["t","r","g"])
 
 #main()
