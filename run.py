@@ -1,11 +1,12 @@
 import random
+import os
 
 categories = {"animals" : ["dog", "cat", "lion", "chicken", "frog"],
               "technology" : ["robot", "computer", "printer", "camera"],
               "sports" : ["cycling", "soccer", "baseball", "tennis", "boxing"]}
 
 
-class player():
+class Player:
     """
     Create an instance of the player class
     """
@@ -43,29 +44,19 @@ def main():
     selection = ""
     start_game = False
     current_category = ""
+    new_player = ""
     while True:
         if main_menu:
-            print("\nSelect one option below:\n")
-            print("1.New Game")
-            print("2.Load Game")
-            selection = input("\nType 1 or 2: ")
-
-            if selection == "1" or selection.lower() == "new game":
-                print("\nCreate new game")
-                main_menu = False
-                
-            elif selection == "2" or selection.lower() == "load game":
-                print("\nLoading game")
-                main_menu = False
-
-            else:
-                print(f"\n{selection} is not a valid option.")
-                continue
-        
+            player_name = input("What is your name? ")
+            new_player = Player(player_name)
+            main_menu = False
         elif start_game:
-            input("Starting game :")
+            print("\nGuess a letter or a word\nYou only have 6 tries")
+            input()
+
 
         else:
+            
             print("\nSelect one category below:")
             for i, c in enumerate(categories):
                 print(i+1,c.capitalize())
@@ -110,28 +101,32 @@ def display_underscores(word, letters_list):
 def display_hangman(num):
     """
     Use a number between 1 and 6 to create the parts of the hangman.
-    Returns the same number as the number passed to it.
     """
     parts = ["O","|","/","\\","/","\\"]
-    if num <= 2:
-        for part in range(num):
-            print("    " + parts[part])
-    else:
+    hangman = {
+        "head" : "",
+        "body" : "",
+        "left_arm" : "",
+        "right_arm" : "",
+        "left_leg" : "",
+        "right_leg" : ""
+    } 
+    hangman_list = [x for x in hangman]
 
-        print("    " + parts[0])
-        print("   " + parts[2], end = "")
-        print(parts[1], end="")
-        
-        if num > 3:
-            print(parts[3])
-            if num > 4:
-                print("   ", end="")
-                for part in range(4,num):
-                    print(parts[part], end = " ")
-    return num
+    for x in range(num):
+        hangman[hangman_list[x]] = parts[x]
+
+        if x == 1:
+            hangman["body"] = " |"
+        elif x == 2:
+            hangman["body"] = "|"
+            
+    print(f"  ------\n  |   |\n  |   {hangman["head"]}\n  |  {hangman["left_arm"]}{hangman["body"]}{hangman["right_arm"]}\n  |  {hangman["left_leg"]} {hangman["right_leg"]}\n__|__") 
 
 
                 
 #display_underscores("tiger", ["t","r","g"])
+
+#display_hangman(1)
 
 #main()
