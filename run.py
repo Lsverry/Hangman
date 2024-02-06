@@ -47,13 +47,47 @@ def main():
     new_player = ""
     while True:
         if main_menu:
-            player_name = input("What is your name? ")
+            player_name = input("\nWhat is your name? ")
             new_player = Player(player_name)
             main_menu = False
-        elif start_game:
-            print("\nGuess a letter or a word\nYou only have 6 tries")
-            input()
 
+        elif start_game:
+            print("\nYou have 6 tries\nType 'back' to choose another category\n")
+            letters = []
+            display_hangman(0)
+            word = select_a_word(current_category)
+            display_underscores(word,letters)
+            tries = 0
+            while tries != 6:
+                letter_or_word = input("\n\nGuess a letter or a word: ").lower()
+
+                if letter_or_word == "back":
+                    start_game = False
+                    break
+                
+                elif letter_or_word != "":
+                    if letter_or_word == word:
+                        letters = [letter for letter in word]
+                        display_hangman(tries)
+                        display_underscores(word, letters)
+
+                    elif letter_or_word in word:
+                        display_hangman(tries)
+                        letters.append(letter_or_word) 
+                        display_underscores(word, letters)
+            
+                    else:
+                        tries+=1
+                        display_hangman(tries)
+                        display_underscores(word, letters)
+
+                else:
+                    print("Empty string")
+                    input("next? ")
+            else:
+                print("\n\nThe correct word was: ", word)
+                play_again = input(f"Type 'back' to change category\nPress enter or type anything else to keep playing with {current_category} category: ").lower()
+                start_game = False if play_again == "back" else True
 
         else:
             
@@ -84,7 +118,7 @@ def select_a_word(category):
     Selects and returns a random word based on the category passed to it.
     """
     number_of_words = len(categories[category])-1
-    print(categories[category][random.randint(0, number_of_words)])
+    return categories[category][random.randint(0, number_of_words)]
 
 
 def display_underscores(word, letters_list):
@@ -121,12 +155,12 @@ def display_hangman(num):
         elif x == 2:
             hangman["body"] = "|"
             
-    print(f"  ------\n  |   |\n  |   {hangman["head"]}\n  |  {hangman["left_arm"]}{hangman["body"]}{hangman["right_arm"]}\n  |  {hangman["left_leg"]} {hangman["right_leg"]}\n__|__") 
+    print(f"  ------\n  |   |\n  |   {hangman["head"]}\n  |  {hangman["left_arm"]}{hangman["body"]}{hangman["right_arm"]}\n  |  {hangman["left_leg"]} {hangman["right_leg"]}\n__|__", end="    ") 
 
 
                 
 #display_underscores("tiger", ["t","r","g"])
 
-#display_hangman(1)
+#display_hangman(6)
 
-#main()
+main()
