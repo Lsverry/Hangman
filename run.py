@@ -56,9 +56,9 @@ def main():
             letters = []
             display_hangman(0)
             word = select_a_word(current_category)
-            display_underscores(word,letters)
+            player_word = display_underscores(word,letters)
             tries = 0
-            while tries != 6:
+            while tries != 6 and player_word != word:
                 letter_or_word = input("\n\nGuess a letter or a word: ").lower()
 
                 if letter_or_word == "back":
@@ -69,13 +69,13 @@ def main():
                     if letter_or_word == word:
                         letters = [letter for letter in word]
                         display_hangman(tries)
-                        display_underscores(word, letters)
+                        player_word = display_underscores(word, letters)
 
                     elif letter_or_word in word:
                         display_hangman(tries)
                         letters.append(letter_or_word) 
-                        display_underscores(word, letters)
-            
+                        player_word = display_underscores(word, letters)
+    
                     else:
                         tries+=1
                         display_hangman(tries)
@@ -85,7 +85,7 @@ def main():
                     print("Empty string")
                     input("next? ")
             else:
-                print("\n\nThe correct word was: ", word)
+                print("\n\nThe correct word was: ", word) if tries == 6 else print(f"\n\nYou got the word right! {new_player.name}")
                 play_again = input(f"Type 'back' to change category\nPress enter or type anything else to keep playing with {current_category} category: ").lower()
                 start_game = False if play_again == "back" else True
 
@@ -126,11 +126,15 @@ def display_underscores(word, letters_list):
     Shows underscores to indicate the number of letters in the word,
     shows the letters found in the word if they are matched.
     """
+    current_word = ""
     for letter in word:
         if letter in letters_list:
+            current_word = current_word + letter
             print(letter.upper(), end=" ")
         else:
+            current_word = current_word + "-"
             print("_", end=" ")
+    return current_word
 
 def display_hangman(num):
     """
@@ -159,7 +163,8 @@ def display_hangman(num):
 
 
                 
-#display_underscores("tiger", ["t","r","g"])
+#word = display_underscores("chicken", ["c","c","h","n","e","e","i","k"])
+#print(word)
 
 #display_hangman(6)
 
