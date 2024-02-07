@@ -52,7 +52,7 @@ def main():
             main_menu = False
 
         elif start_game:
-            print("\nYou have 6 tries\nType 'back' to choose another category\n")
+            print(f"\nYou are playing with the {current_category} category\nType 'back' to choose another category\n-Words you got right: {new_player.correct_points}\n-Words you didn't get right: {new_player.wrong_points}\n")
             letters = []
             new_player.wrong_letters = []
             new_player.wrong_words = []
@@ -91,13 +91,15 @@ def main():
                 else:
                     print(f"\n\nUsed letters: {new_player.wrong_letters}")
                     print(f"Used words: {new_player.wrong_words}")
-                    print(f"You've already used: {letter_or_word.upper()}")
+                    print(f"You've already used: {letter_or_word.upper()}") if letter_or_word != "" else print("No letter or word found")
                     display_hangman(new_player.tries)
                     display_underscores(word, letters)
 
             else:
-                print("\n\nThe correct word was: ", word) if new_player.tries == 6 else print(f"\n\nYou got the word right! {new_player.name}")
-                play_again = input(f"Type 'back' to change category\nPress enter or type anything else to keep playing with {current_category} category: ").lower()
+                new_player.add_points("wrong_points") if new_player.tries == 6 else new_player.add_points("correct_points")
+                print(f"\n\n-Words you got right: {new_player.correct_points}\n-Words you didn't get right: {new_player.wrong_points}")
+                print("The correct word was: ", word) if new_player.tries == 6 else print(f"You got the word right! {new_player.name}")
+                play_again = input(f"Type 'back' to change category\nPress enter or type anything else to continue playing with the {current_category} category: ").lower()
                 start_game = False if play_again == "back" else True
 
         else:
