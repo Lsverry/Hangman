@@ -15,8 +15,8 @@ class Player:
         self.tries = 0 #Attribute specific to each instance
         self.correct_points = 0
         self.wrong_points = 0 
+        self.wrong_letters = []
         self.wrong_words = []
-        self.correct_words = []
 
 
     def add_points(self, name_counter):
@@ -27,11 +27,11 @@ class Player:
         else:
             self.wrong_points+=1
 
-    def add_word(self, name_list, word):
-        if name_list == "wrong_words":
-            self.wrong_words.append(word)
+    def add_to_list(self, name_list, letter):
+        if name_list == "wrong_letters":
+            self.wrong_letters.append(letter)
         else:
-            self.correct_words.append(word)
+            self.wrong_words.append(letter)
 
 
 def main():
@@ -54,38 +54,49 @@ def main():
         elif start_game:
             print("\nYou have 6 tries\nType 'back' to choose another category\n")
             letters = []
+            new_player.wrong_letters = []
+            new_player.wrong_words = []
             display_hangman(0)
             word = select_a_word(current_category)
             player_word = display_underscores(word,letters)
-            tries = 0
-            while tries != 6 and player_word != word:
+            new_player.tries = 0
+            while new_player.tries != 6 and player_word != word:
                 letter_or_word = input("\n\nGuess a letter or a word: ").lower()
 
                 if letter_or_word == "back":
                     start_game = False
                     break
                 
-                elif letter_or_word != "":
+                elif letter_or_word != "" and letter_or_word.upper() not in new_player.wrong_letters and letter_or_word.upper() not in new_player.wrong_words:
                     if letter_or_word == word:
                         letters = [letter for letter in word]
-                        display_hangman(tries)
+                        display_hangman(new_player.tries)
                         player_word = display_underscores(word, letters)
 
                     elif letter_or_word in word:
-                        display_hangman(tries)
+                        print(f"Used letters: {new_player.wrong_letters}")
+                        print(f"Used words: {new_player.wrong_words}")
+                        display_hangman(new_player.tries)
                         letters.append(letter_or_word) 
                         player_word = display_underscores(word, letters)
     
                     else:
-                        tries+=1
-                        display_hangman(tries)
+                        new_player.add_to_list("wrong_letters", letter_or_word.upper()) if len(letter_or_word) == 1 else new_player.add_to_list("wrong_words", letter_or_word.upper())
+                        print(f"Used letters: {new_player.wrong_letters}")
+                        print(f"Used words: {new_player.wrong_words}")
+                        new_player.add_points("tries")
+                        display_hangman(new_player.tries)
                         display_underscores(word, letters)
 
                 else:
-                    print("Empty string")
-                    input("next? ")
+                    print(f"\n\nUsed letters: {new_player.wrong_letters}")
+                    print(f"Used words: {new_player.wrong_words}")
+                    print(f"You've already used: {letter_or_word.upper()}")
+                    display_hangman(new_player.tries)
+                    display_underscores(word, letters)
+
             else:
-                print("\n\nThe correct word was: ", word) if tries == 6 else print(f"\n\nYou got the word right! {new_player.name}")
+                print("\n\nThe correct word was: ", word) if new_player.tries == 6 else print(f"\n\nYou got the word right! {new_player.name}")
                 play_again = input(f"Type 'back' to change category\nPress enter or type anything else to keep playing with {current_category} category: ").lower()
                 start_game = False if play_again == "back" else True
 
