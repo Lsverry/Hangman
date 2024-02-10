@@ -1,9 +1,16 @@
 import random
-import os
 
-categories = {"animals" : ["dog", "cat", "lion", "chicken", "frog"],
-              "technology" : ["robot", "computer", "printer", "camera"],
-              "sports" : ["cycling", "soccer", "baseball", "tennis", "boxing"]}
+
+categories = {"animals" : ["dog", "cat", "elephant", "lion", "tiger", "giraffe", "monkey", "bear", "rabbit", "snake", "dolphin", "penguin", "kangaroo", "fox", "wolf", "horse", "zebra", "gorilla", "owl", "eagle"],
+              "technology" : ["computer", "software", "hardware", "internet", "programming", "algorithm", "database", "cybersecurity", "encryption", "network", "server", "cloud", "smartphone", "tablet", "laptop", "router", "mouse", "keyboard", "monitor"],
+              "sports" : ["soccer", "basketball", "tennis", "swimming", "volleyball", "baseball", "golf", "cycling", "boxing", "running", "skiing", "surfing", "wrestling", "cricket", "rugby", "hockey", "badminton", "athletics", "climbing"],
+              "vehicles" : ["car", "truck", "bus", "motorcycle", "bicycle", "train", "airplane", "helicopter", "boat", "ship", "submarine", "scooter", "van", "taxi", "ambulance", "firetruck", "tractor", "spaceship", "rocket"],
+              "professions" : ["actor", "artist", "baker", "chef", "doctor", "engineer", "firefighter", "journalist", "lawyer", "musician", "nurse", "painter", "photographer", "pilot", "plumber", "scientist", "teacher", "veterinarian", "writer"],
+              "fruits" : ["apple", "banana", "blueberry", "cherry", "grape", "kiwi", "lemon", "mango", "orange", "peach", "pear", "pineapple", "plum", "raspberry", "strawberry", "watermelon", "apricot", "blackberry", "cranberry", "fig"],
+              "countries" : ["argentina", "australia", "brazil", "canada", "china", "egypt", "france", "germany", "india", "italy", "japan", "mexico", "nigeria", "russia", "eeuu", "spain", "sweden", "thailand", "turkey", "ireland"],
+              "instruments" : ["accordion", "banjo", "cello", "clarinet", "drums", "flute", "guitar", "harp", "keyboard", "mandolin", "oboe", "piano", "saxophone", "trombone", "trumpet", "ukulele", "violin", "xylophone", "zither"],
+              "clothes" : ["shirt", "pants","dress", "skirt", "jacket", "sweater", "coat", "blouse", "jeans", "shorts", "hat", "scarf", "gloves", "socks", "shoes", "boots", "tie", "belt", "hoodie", "sneakers"],
+              "colors" : ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "white", "gray", "cyan", "magenta", "turquoise", "lavender", "maroon", "gold", "silver", "teal", "olive"]}
 
 
 class Player:
@@ -75,7 +82,7 @@ def main():
                         display_hangman(new_player.tries)
                         player_word = display_underscores(word, letters)
 
-                    elif letter_or_word in word:
+                    elif letter_or_word in word and len(letter_or_word) == 1:
                         new_player.add_to_list("letters", letter_or_word)
                         print(f"\n\nUsed letters: {new_player.letters}")
                         print(f"Used words: {new_player.wrong_words}")
