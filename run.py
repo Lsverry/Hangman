@@ -27,6 +27,9 @@ class Player:
 
 
     def add_points(self, name_counter):
+        """
+        Adds points to the counter you specify as argument
+        """
         if name_counter == "tries":
             self.tries+=1
         elif name_counter == "correct_points":
@@ -35,6 +38,9 @@ class Player:
             self.wrong_points+=1
 
     def add_to_list(self, name_list, letter):
+        """
+        Adds a letter or word to the list you specify
+        """
         if name_list == "letters":
             self.letters.append(letter)
         else:
@@ -115,7 +121,7 @@ def main():
             
             print("\nSelect one category below:")
             for i, c in enumerate(categories):
-                print(i+1,c.capitalize())
+                print(i+1, c.capitalize())
             selection = input("Type a number or a name to select: ").strip()
 
             if selection.lower() in categories_list:
@@ -162,7 +168,7 @@ def display_hangman(num):
     """
     Use a number between 1 and 6 to create the parts of the hangman.
     """
-    parts = ["O","|","/","\\","/","\\"]
+    parts = ["O", "|", "/", "\\", "/", "\\"]
     hangman = {
         "head" : "",
         "body" : "",
@@ -182,12 +188,6 @@ def display_hangman(num):
             hangman["body"] = "|"
             
     print(f"  ------\n  |   |\n  |   {hangman["head"]}\n  |  {hangman["left_arm"]}{hangman["body"]}{hangman["right_arm"]}\n  |  {hangman["left_leg"]} {hangman["right_leg"]}\n__|__", end="    ") 
-
-
-                
-#word = display_underscores("chicken", ["c","c","h","n","e","e","i","k"])
-#print(word)
-
-#display_hangman(6)
+    
 
 main()
