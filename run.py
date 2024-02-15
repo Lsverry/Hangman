@@ -60,12 +60,15 @@ def main():
     new_player = ""
     while True:
         if main_menu:
-            player_name = input("\nEnter your name: ").strip()
-            if player_name.isalpha():
-                new_player = Player(player_name.capitalize())
-                main_menu = False
-            else:
-                print("Only letters and no spaces are allowed")
+            try:
+                player_name = input("\nEnter your name: ").strip()
+                if player_name.isalpha():
+                    new_player = Player(player_name.capitalize())
+                    main_menu = False
+                else:
+                    print("Only letters and no spaces are allowed")
+            except KeyboardInterrupt:
+                print("\nKeyboard interruption detected, try again.")
 
         elif start_game:
             print(f"\nYou are playing with the '{current_category}' category\nType 'back' to choose another category\n-Words you got right: {new_player.correct_points}\n-Words you didn't get right: {new_player.wrong_points}\n")
@@ -75,38 +78,47 @@ def main():
             word = select_a_word(current_category).upper()
             player_word = display_underscores(word, new_player.letters)
             new_player.tries = 0
+
             while new_player.tries != 6 and player_word != word:
-                letter_or_word = input("\n\nGuess a letter or a word: ").upper().strip()
+                try:
+                    letter_or_word = input("\n\nGuess a letter or a word: ").upper().strip()
 
-                if letter_or_word == "BACK":
-                    start_game = False
-                    break
-                
-                elif letter_or_word != "" and letter_or_word not in new_player.letters and letter_or_word not in new_player.wrong_words and letter_or_word.isalpha():
-                    if letter_or_word == word:
-                        letters = [letter for letter in word]
-                        display_hangman(new_player.tries)
-                        player_word = display_underscores(word, letters)
+                    if letter_or_word == "BACK":
+                        start_game = False
+                        break
+                    
+                    elif letter_or_word != "" and letter_or_word not in new_player.letters and letter_or_word not in new_player.wrong_words and letter_or_word.isalpha():
+                        if letter_or_word == word:
+                            letters = [letter for letter in word]
+                            display_hangman(new_player.tries)
+                            player_word = display_underscores(word, letters)
 
-                    elif letter_or_word in word and len(letter_or_word) == 1:
-                        new_player.add_to_list("letters", letter_or_word)
-                        print(f"\n\nUsed letters: {new_player.letters}")
-                        print(f"Used words: {new_player.wrong_words}")
-                        display_hangman(new_player.tries) 
-                        player_word = display_underscores(word, new_player.letters)
-    
+                        elif letter_or_word in word and len(letter_or_word) == 1:
+                            new_player.add_to_list("letters", letter_or_word)
+                            print(f"\n\nUsed letters: {new_player.letters}")
+                            print(f"Used words: {new_player.wrong_words}")
+                            display_hangman(new_player.tries) 
+                            player_word = display_underscores(word, new_player.letters)
+        
+                        else:
+                            new_player.add_to_list("letters", letter_or_word) if len(letter_or_word) == 1 else new_player.add_to_list("wrong_words", letter_or_word)
+                            print(f"\n\nUsed letters: {new_player.letters}")
+                            print(f"Used words: {new_player.wrong_words}")
+                            new_player.add_points("tries")
+                            display_hangman(new_player.tries)
+                            display_underscores(word, new_player.letters)
+
                     else:
-                        new_player.add_to_list("letters", letter_or_word) if len(letter_or_word) == 1 else new_player.add_to_list("wrong_words", letter_or_word)
                         print(f"\n\nUsed letters: {new_player.letters}")
                         print(f"Used words: {new_player.wrong_words}")
-                        new_player.add_points("tries")
+                        print(f"You've already used: {letter_or_word}") if letter_or_word in new_player.letters or letter_or_word in new_player.wrong_words else print("No valid letters or words found")
                         display_hangman(new_player.tries)
                         display_underscores(word, new_player.letters)
 
-                else:
+                except KeyboardInterrupt:
+                    print("\nKeyboard interruption detected, try again.")
                     print(f"\n\nUsed letters: {new_player.letters}")
                     print(f"Used words: {new_player.wrong_words}")
-                    print(f"You've already used: {letter_or_word}") if letter_or_word in new_player.letters or letter_or_word in new_player.wrong_words else print("No valid letters or words found")
                     display_hangman(new_player.tries)
                     display_underscores(word, new_player.letters)
 
@@ -119,25 +131,29 @@ def main():
 
         else:
             
-            print("\nSelect one category below:")
-            for i, c in enumerate(categories):
-                print(i+1, c.capitalize())
-            selection = input("Type a number or a name to select: ").strip()
+            try:
+                print("\nSelect one category below:")
+                for i, c in enumerate(categories):
+                    print(i+1, c.capitalize())
+                selection = input("Type a number or a name to select: ").strip()
 
-            if selection.lower() in categories_list:
-                start_game = True
-                current_category = selection.lower()
-
-            elif selection.isdigit():
-                selection = int(selection)
-                if selection-1 < len(categories_list) and selection-1 != -1:
+                if selection.lower() in categories_list:
                     start_game = True
-                    current_category = categories_list[selection-1]
+                    current_category = selection.lower()
 
+                elif selection.isdigit():
+                    selection = int(selection)
+                    if selection-1 < len(categories_list) and selection-1 != -1:
+                        start_game = True
+                        current_category = categories_list[selection-1]
+
+                    else:
+                        print(f"\n'{selection}' is not included, try again")
                 else:
-                    print(f"\n'{selection}' is not included, try again")
-            else:
-                print(f"\n'{selection}' is not an included category, try again") if selection != "" else print("\nNo category found")
+                    print(f"\n'{selection}' is not an included category, try again") if selection != "" else print("\nNo category found")
+            
+            except KeyboardInterrupt:
+                print("\nKeyboard interruption detected, try again.")
 
 
 

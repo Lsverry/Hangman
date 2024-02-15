@@ -2,6 +2,9 @@
 
 Hangman is a python terminal game, it is a version of a classic game in which the player has to guess a word by suggesting letters one at a time, if these are present in the word they are revealed, otherwise a part of the hangman is drawn, it is possible to try to guess the word directly, furthermore the game has 10 categories and words related to that category that are chosen randomly. This game is intended for those who want to improve their vocabulary and deduction skills.
 
+[You can find the live version of my project here.](https://hangman2-0ebfc7274112.herokuapp.com/)
+![Hangman different screens](assets/images/different_screens.png)
+
 ## How to play
 
 This is a version of the classic hangman game, which you can read more about on [Wikipedia](https://www.bing.com/ck/a?!&&p=a76a61690e4a1eaeJmltdHM9MTcwNzk1NTIwMCZpZ3VpZD0yY2NiMTIyNC04OThhLTZhOTQtMWFiZC0wMTAxODhmNTZiMzcmaW5zaWQ9NTIxNA&ptn=3&ver=2&hsh=3&fclid=2ccb1224-898a-6a94-1abd-010188f56b37&psq=hangman+wikipedia&u=a1aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvSGFuZ21hbl8oZ2FtZSk&ntb=1).
