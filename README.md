@@ -67,7 +67,7 @@ I used the Player class as a data model. The class stores the player's name, the
 The class has two instance methods, one that adds points to any of the counters by passing the name of the counter and one that adds words or letters by passing the name of the list and the letter or word to be added.
 
 ##  Testing
-- I have verified the code by running it through a PEP8 linter and no problems were found.
+- I ran the code through a PEP8 linter and found no significant problems, just a few long lines.
 - Through invalid inputs, numbers not listed in the categories, category names not present, also in the main game loop passing empty numbers or strings.
 - Tested on my local terminal and on the Code Institute Heroku terminal 
 
